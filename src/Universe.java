@@ -1,6 +1,11 @@
 import java.util.*;
 import java.util.function.Predicate;
 public class Universe {
+    /*
+    * number of seconds between each generation in behavior method*/
+    private static final int SECONDS = 1;
+    /*Maximum number for all randoms in the behavior method*/
+    private static final int MAX_RANDOM = 1000;
     private String name;
     /*contains all the galaxies in this universe*/
     private LinkedHashSet<Galaxy> galaxies = new LinkedHashSet<>();
@@ -70,7 +75,21 @@ public class Universe {
         ArrayList<Galaxy> helpingArray = new ArrayList<>(galaxies);
         return helpingArray.indexOf(galaxy);
     }
+    /*
+     * fills universe with randomly generated galaxies
+     * this method runs infinitely!
+     * universe list of galaxies is reassigned every time
+     * the generation happens once in SECONDS time
+     */
+    public void behavior() throws InterruptedException{
+        while(true) {
+            LinkedHashSet<Galaxy> generated = RandomGalaxiesAndPlanetsGenerator.generate('G', 'P', MAX_RANDOM, MAX_RANDOM,MAX_RANDOM,MAX_RANDOM);
+            galaxies = new LinkedHashSet<>(generated);
+            System.out.println(galaxies);
+            Thread.sleep(SECONDS);
+        }
 
+    }
     @Override
     public String toString() {
         return "Universe{" +

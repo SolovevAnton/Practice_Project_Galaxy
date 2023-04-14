@@ -5,7 +5,7 @@ import java.util.Collection;
 *Class with main method to test other classes
  */
 public class Test {
-    public static void main(String args[]){
+    public static void main(String args[]) throws InterruptedException{
     Planet[] planets = {
             null,
         new Planet(),
@@ -36,7 +36,7 @@ public class Test {
     };
 
     for(Universe u : universes){
-    //    u.setGalaxies(null);
+//        u.setGalaxies(null);
         System.out.println(u);
         System.out.println(u.searchPlanet((String) null));
         System.out.println(u.searchGalaxy((String)null));
@@ -50,6 +50,8 @@ public class Test {
         System.out.println(u);
         System.out.println();
     }
+    Universe randomUni = new Universe();
+    randomUni.behavior();
 
     }
 }
