@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /*
 *Class with main method to test other classes
  */
@@ -9,11 +11,18 @@ public class Test {
         new Planet("Earth", 6_378,23.933),
         new Planet("Earth", 6_378,23.933)
     };
-        System.out.println(planets[0].equals(planets[1]));
-        System.out.println(planets[2].equals(planets[3]));
-    for(Planet p: planets){
-        System.out.println(p);
-        System.out.println(p.behavior());
+
+    Galaxy[] galaxies = {
+            new Galaxy(),
+            new Galaxy("empty"),
+            new Galaxy("1 plan",new Planet()),
+            new Galaxy("2 plan",new Planet(),new Planet("Earth", 6_378,23.933)),
+            new Galaxy("array",planets),
+            new Galaxy("collection", Arrays.asList(planets))
+    };
+
+    for(Galaxy g : galaxies){
+        System.out.println(g);
     }
 
     }
