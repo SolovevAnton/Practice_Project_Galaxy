@@ -35,21 +35,21 @@ public class Test {
             new Universe("collection", Arrays.asList(galaxies))
     };
 
-    for(Universe u : universes){
-//        u.setGalaxies(null);
-        System.out.println(u);
-        System.out.println(u.searchPlanet((String) null));
-        System.out.println(u.searchGalaxy((String)null));
-        System.out.println(u.searchGalaxy((Galaxy)null));
-        System.out.println(u.addGalaxy(null));
-        System.out.println(Arrays.toString(u.searchPlanet((Planet) null)));
-        System.out.println(u.searchPlanet("otherPlan"));
-        System.out.println(u.searchGalaxy(new Galaxy()));
-        System.out.println(Arrays.toString(u.searchPlanet(new Planet("otherPlan", 6_378,23.933))));
-        System.out.println(u.addGalaxy(galaxies[galaxyToAdd]));
-        System.out.println(u);
-        System.out.println();
-    }
+//    for(Universe u : universes){
+////        u.setGalaxies(null);
+//        System.out.println(u);
+//        System.out.println(u.searchPlanet((String) null));
+//        System.out.println(u.searchGalaxy((String)null));
+//        System.out.println(u.searchGalaxy((Galaxy)null));
+//        System.out.println(u.addGalaxy(null));
+//        System.out.println(Arrays.toString(u.searchPlanet((Planet) null)));
+//        System.out.println(u.searchPlanet("otherPlan"));
+//        System.out.println(u.searchGalaxy(new Galaxy()));
+//        System.out.println(Arrays.toString(u.searchPlanet(new Planet("otherPlan", 6_378,23.933))));
+//        System.out.println(u.addGalaxy(galaxies[galaxyToAdd]));
+//        System.out.println(u);
+//        System.out.println();
+//    }
     Universe randomUni = new Universe();
     randomUni.behavior();
 

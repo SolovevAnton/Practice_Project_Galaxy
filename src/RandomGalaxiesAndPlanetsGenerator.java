@@ -1,5 +1,5 @@
 import java.util.LinkedHashSet;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /*
 * The Class is designed to generate random number of galaxies with random number of planets
@@ -18,8 +18,7 @@ public class RandomGalaxiesAndPlanetsGenerator {
     * @return LinkedHashSet of Galaxies
     */
     public static LinkedHashSet<Galaxy> generate(char galaxyNames, char planetNames, int numOfGalaxies, int numOfPlanets,int maxRadius, int maxOrbitalPeriod){
-       Random random = new Random();
-       int numberOfGalaxies = random.nextInt(numOfGalaxies);
+       int numberOfGalaxies = ThreadLocalRandom.current().nextInt(numOfGalaxies);
        LinkedHashSet<Galaxy> generated = new LinkedHashSet<>();
        for(int i = 0; i < numberOfGalaxies; i++)
        {
@@ -36,11 +35,12 @@ public class RandomGalaxiesAndPlanetsGenerator {
     *
      */
     public static Planet[] generatePlanets(char planetName, int numOfPlanets,int maxRadius, int maxOrbitalPeriod ) {
-        Random random = new Random();
-        int numberOfPlanets = random.nextInt(numOfPlanets);
+        int numberOfPlanets = ThreadLocalRandom.current().nextInt(numOfPlanets);
         Planet[] generated = new Planet[numberOfPlanets];
-        for(int i = 0; i < numOfPlanets; i++){
-            generated[i] = new Planet(planetName+"#" + i, random.nextInt(maxRadius),random.nextInt(maxOrbitalPeriod));
+        for(int i = 0; i < generated.length; i++){
+            int rad =ThreadLocalRandom.current().nextInt(1,maxRadius);
+            int orbPeriod = ThreadLocalRandom.current().nextInt(1,maxOrbitalPeriod);
+            generated[i] = new Planet(planetName+"#" + i, rad,orbPeriod);
         }
         return generated;
     }
