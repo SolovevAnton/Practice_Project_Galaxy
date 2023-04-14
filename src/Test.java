@@ -15,22 +15,33 @@ public class Test {
     };
 
     Galaxy[] galaxies = {
+            null,
             new Galaxy(),
-            new Galaxy("nullPlanet", null,null),
+            new Galaxy("nullPlanet", (Planet)null),
             new Galaxy("empty"),
             new Galaxy("1 plan",new Planet()),
             new Galaxy("2 plan",new Planet(),new Planet("otherPlan", 6_378,23.933)),
             new Galaxy("array",planets),
             new Galaxy("collection", Arrays.asList(planets)),
     };
+    int galaxyToAdd = 5;
+    Universe[] universes = {
+            new Universe(),
+            new Universe("nullGalaxy",(Galaxy)null),
+            new Universe("empty"),
+            new Universe("1 Gal",new Galaxy()),
+            new Universe("2 Gal", new Galaxy(), galaxies[galaxyToAdd]),
+            new Universe("array",galaxies),
+            new Universe("collection", Arrays.asList(galaxies))
+    };
 
-    for(Galaxy g : galaxies){
-        System.out.println(g.getName());
-        System.out.println(g.behavior());
-        System.out.println(g.addPlanet(null));
-        System.out.println(g.deletePlanet((String)null));
-        System.out.println(g.deletePlanet((Planet)null));
-        System.out.println(g);
+    for(Universe u : universes){
+        System.out.println(u);
+        System.out.println(u.searchPlanet(null));
+        System.out.println(u.addGalaxy(null));
+        System.out.println(u.searchPlanet("otherPlan"));
+        System.out.println(u.addGalaxy(galaxies[galaxyToAdd]));
+        System.out.println(u);
         System.out.println();
     }
 
