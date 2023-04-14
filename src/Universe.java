@@ -1,8 +1,5 @@
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.LinkedHashSet;
-import java.util.stream.Stream;
-
+import java.util.*;
+import java.util.function.Predicate;
 public class Universe {
     private String name;
     /*contains all the galaxies in this universe*/
@@ -18,23 +15,62 @@ public class Universe {
     }
     /*Method adds Galaxy, if it doesn't already exist in this universe
      *@return true if the galaxy was successfully added, false otherwise
-     * */
+     **/
     public boolean addGalaxy(Galaxy galaxy){
         return galaxies!=null && galaxies.add(galaxy);
     }
     /*Method to find planet by name
-    * @return First found Planet if it has been found, null otherwise*/
+    * @return First found Planet if it has been found, null otherwise
+    **/
     public Planet searchPlanet(String name){
-            if(galaxies == null || galaxies.isEmpty()) {return null;}
-            LinkedHashSet<Galaxy> nonNullGalaxies = getGalaxies();
-            nonNullGalaxies.remove(null);
-            return nonNullGalaxies.isEmpty() ? null
-                   :nonNullGalaxies
+            return galaxies == null ? null
+                    :galaxies
                     .stream()
+                    .filter(Objects::nonNull)
                     .map(g -> g.searchPlanet(name))
+                    .filter(Objects::nonNull)
                     .findFirst()
                     .orElse(null);
     }
+    /*Method to find planet by object Planet
+     * @return array of index of the galaxy where the planet was Firstly found and index of that planet in the galaxy, null otherwise
+     **/
+    public int[] searchPlanet(Planet planet){
+        if(galaxies == null || galaxies.isEmpty()) {return null;}
+        int planetIndex = -1;
+        int galaxyIndex = -1;
+        ArrayList<Galaxy> listOfGalaxies = new ArrayList<>(galaxies);
+        listOfGalaxies.remove(null);
+        while(planetIndex == -1 && ++galaxyIndex < listOfGalaxies.size()){
+            planetIndex = listOfGalaxies.get(galaxyIndex).searchPlanet(planet);
+        }
+
+        return planetIndex == -1 ? null
+                :new int[]{galaxyIndex,planetIndex};
+    }
+    /*Method to find galaxy by name
+     * @return First found Galaxy if it has been found, null otherwise
+     **/
+    public Galaxy searchGalaxy(String galaxyName){
+        Predicate<Galaxy> checkName = g -> g!=null && (
+                g.getName() != null ? g.getName().equals(galaxyName)
+                        : galaxyName == null
+                );
+        return galaxies == null ? null
+                :galaxies
+                .stream()
+                .filter(checkName)
+                .findFirst()
+                .orElse(null);
+    }
+    /*Searches galaxy in universe by Galaxy object
+     * @return Galaxy index in galaxy or -1 if planet not found*/
+    public int searchGalaxy(Galaxy galaxy){
+        if(galaxies == null) {return -1;}
+        ArrayList<Galaxy> helpingArray = new ArrayList<>(galaxies);
+        return helpingArray.indexOf(galaxy);
+    }
+
     @Override
     public String toString() {
         return "Universe{" +
