@@ -1,8 +1,8 @@
-package com.kirillkotov;
+package com.solovev;
 
-import com.kirillkotov.model.Galaxy;
-import com.kirillkotov.model.Planet;
-import com.kirillkotov.model.Universe;
+import com.solovev.model.Galaxy;
+import com.solovev.model.Planet;
+import com.solovev.model.Universe;
 
 import java.util.Arrays;
 import java.util.Scanner;

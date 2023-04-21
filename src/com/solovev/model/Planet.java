@@ -1,4 +1,4 @@
-package com.kirillkotov.model;
+package com.solovev.model;
 
 public class Planet {
     private String name;
@@ -19,14 +19,15 @@ public class Planet {
     /**
      * calculates and returns speed in km/h of planet rotation
      *
-     * @return
+     * @return speed of the rotation in km/h
      */
     private double speedCalc() {
         return 2 * Math.PI * radius / orbitalPeriod;
     }
 
-    /*
-     * describes behavior of the planet
+    /**
+     * Describes behavior of the planet
+     *
      * @return String with name of the planet and its rotation speed in km/h
      */
     public String behavior() {

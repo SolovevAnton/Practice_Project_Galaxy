@@ -1,4 +1,4 @@
-package com.kirillkotov.model;
+package com.solovev.model;
 
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -7,27 +7,38 @@ import java.util.stream.Collectors;
 
 public class Galaxy {
     private String name;
-    /*contains all the planets in this galaxy*/
-    private LinkedHashSet<Planet> planets = new LinkedHashSet<>();
+    private final LinkedHashSet<Planet> planets = new LinkedHashSet<>();
 
     public Galaxy() {
     }
 
-    /*Method that describes behavior of the galaxy by describing behavior of every planet in galaxy
+    public Galaxy(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Method that describes behavior of the galaxy by describing behavior of every planet in galaxy
+     *
      * @return String with behavior description of all planets, null planets consider to have null behavior
-     * */
+     */
     public String behavior() {
         return planets.stream().map(Planet::behavior).collect(Collectors.joining(", "));
     }
 
-    /*Method adds planet, if it doesn't already exist in it
-     *@return true if the planet was successfully added, false otherwise*/
+    /**
+     * Method adds planet in Galaxy, if it doesn't already exist in it
+     *
+     * @return true if the planet was successfully added, false otherwise
+     */
     public boolean addPlanet(Planet planet) {
         return planets.add(planet);
     }
 
-    /*Searches planet in galaxy by name
-     * @return first found com.kirillkotov.model.Planet with the searched name, null otherwise*/
+    /**
+     * Searches planet in galaxy by name
+     *
+     * @return first found Planet with the searched name, null otherwise
+     */
     public Planet searchPlanet(String planetName) {
         return planets.stream()
                 .filter(p -> planetName.equals(p.getName()))
@@ -35,25 +46,33 @@ public class Galaxy {
                 .orElse(null);
     }
 
-    /*Searches planet in galaxy by com.kirillkotov.model.Planet object
-     * @return com.kirillkotov.model.Planet index in galaxy or -1 if planet not found*/
+    /**
+     * Searches planet in galaxy by Planet object
+     *
+     * @return Planet index in galaxy or -1 if planet not found
+     */
     public int searchPlanet(Planet planet) {
         return new ArrayList<>(planets).indexOf(planet);
     }
 
-    /*deletes first found com.kirillkotov.model.Planet with matching name
-     * @return com.kirillkotov.model.Planet that was deleted, null if planet not found
-     * */
+    /**
+     * Deletes first found Planet with matching name
+     *
+     * @return Planet that was deleted, null if planet not found
+     */
     public Planet deletePlanet(String planetName) {
         Planet searchedPlanet = searchPlanet(planetName);
-        if(searchedPlanet == null)
+        if (searchedPlanet == null)
             return null;
         deletePlanet(searchedPlanet);
         return searchedPlanet;
     }
 
-    /*deletes com.kirillkotov.model.Planet from galaxy
-     * @return true if planet was successfully deleted, false otherwise*/
+    /**
+     * Deletes Planet from Galaxy
+     *
+     * @return true if planet was successfully deleted, false otherwise
+     */
     public boolean deletePlanet(Planet planet) {
         return planets.remove(planet);
     }
@@ -66,12 +85,19 @@ public class Galaxy {
         this.name = name;
     }
 
-    /*public Planet get(int index){
-        if(index < 0 || index >= this.planets.size()){
-            throw
+    /**
+     * Method used to find Planet by its index in Galaxy
+     *
+     * @param index - index of the planet. Cannot be < 0 or more than Galaxy size
+     * @return Planet with given index
+     * @throws IndexOutOfBoundsException if index is < 0 or more than GalaxySize
+     */
+    public Planet get(int index) {
+        if (index < 0 || index >= this.planets.size()) {
+            throw new IndexOutOfBoundsException("Index" + index + "is out of bounds for Galaxy of size " + this.planets.size());
         }
-        this.planets.
-    }*/
+        return new ArrayList<>(this.planets).get(index);
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -1,18 +1,20 @@
-package com.kirillkotov.model;
+package com.solovev.model;
 
-import com.kirillkotov.util.RandomGenerator;
+import com.solovev.util.RandomGenerator;
 
 import java.util.*;
 
 public class Universe {
-    /*
-     * number of seconds between each generation in behavior method*/
+    /**
+     * Number of seconds between each generation in behavior method
+     */
     private static final int SECONDS = 30;
-    /*Maximum number for all randoms in the behavior method*/
+    /**
+     * Maximum number for all randoms in the behavior method
+     */
     private static final int MAX_RANDOM = Integer.MAX_VALUE / 1_000_000;
     private String name;
-    /*contains all the galaxies in this universe*/
-    private LinkedHashSet<Galaxy> galaxies = new LinkedHashSet<>();
+    private final LinkedHashSet<Galaxy> galaxies = new LinkedHashSet<>();
 
     public Universe() {
     }
@@ -21,13 +23,21 @@ public class Universe {
         this.name = name;
     }
 
+    /**
+     * Method to add Galaxy to universe
+     *
+     * @param galaxy - galaxy to be added. Only unique galaxies can be added to universe
+     * @return true if galaxy was successfully  added, false otherwise
+     */
     public boolean addGalaxy(Galaxy galaxy) {
         return galaxies.add(galaxy);
     }
 
-    /*Method to find planet by name
-     * @return First found com.kirillkotov.model.Planet if it has been found, null otherwise
-     **/
+    /**
+     * Method to find planet by name
+     *
+     * @return First found Planet if it has been found, null otherwise
+     */
     public Planet searchPlanet(String name) {
         return galaxies
                 .stream()
@@ -37,7 +47,9 @@ public class Universe {
                 .orElse(null);
     }
 
-    /*Method to find planet by object com.kirillkotov.model.Planet
+    /**
+     * Method to find planet by object Planet
+     *
      * @return array of index of the galaxy where the planet was Firstly found and index of that planet in the galaxy, null otherwise
      **/
     public int[] searchPlanet(Planet planet) {
@@ -51,8 +63,10 @@ public class Universe {
         return planetIndex == -1 ? new int[0] : new int[]{galaxyIndex, planetIndex};
     }
 
-    /*Method to find galaxy by name
-     * @return First found com.kirillkotov.model.Galaxy if it has been found, null otherwise
+    /**
+     * Method to find galaxy by name
+     *
+     * @return First Galaxy if it has been found, null otherwise
      **/
     public Galaxy searchGalaxy(String galaxyName) {
         return galaxies
@@ -62,16 +76,19 @@ public class Universe {
                 .orElse(null);
     }
 
-    /*Searches galaxy in universe by com.kirillkotov.model.Galaxy object
-     * @return com.kirillkotov.model.Galaxy index in galaxy or -1 if planet not found*/
+    /**
+     * Searches galaxy in Universe by Galaxy object
+     *
+     * @return Galaxy index in galaxy or -1 if planet not found
+     */
     public int searchGalaxy(Galaxy galaxy) {
         return new ArrayList<>(galaxies).indexOf(galaxy);
     }
 
-    /*
-     * fills universe with randomly generated galaxies
-     * this method runs infinitely!
-     * universe list of galaxies is reassigned every time
+    /**
+     * Randomly generated galaxies for universe;
+     * All galaxies will be added to universe
+     * This method runs infinitely!
      * the generation happens once in SECONDS time
      */
     public void behavior() {
@@ -82,13 +99,14 @@ public class Universe {
                 galaxies.addAll(generated);
                 Thread.sleep(SECONDS);
             }
-        } catch (InterruptedException e) {}
+        } catch (InterruptedException e) {
+        }
 
     }
 
     @Override
     public String toString() {
-        return "com.kirillkotov.model.Universe{" +
+        return "Universe{" +
                 "name='" + name + '\'' +
                 ", galaxies=" + galaxies +
                 '}';
@@ -101,16 +119,17 @@ public class Universe {
 
         Universe universe = (Universe) o;
 
-        if (getName() != null ? !getName().equals(universe.getName()) : universe.getName() != null) return false;
-        return getGalaxies() != null ? getGalaxies().equals(universe.getGalaxies()) : universe.getGalaxies() == null;
+        if (!Objects.equals(name, universe.name)) return false;
+        return Objects.equals(galaxies, universe.galaxies);
     }
 
     @Override
     public int hashCode() {
-        int result = getName() != null ? getName().hashCode() : 0;
-        result = 31 * result + (getGalaxies() != null ? getGalaxies().hashCode() : 0);
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (galaxies != null ? galaxies.hashCode() : 0);
         return result;
     }
+
 
     public String getName() {
         return name;
@@ -120,11 +139,5 @@ public class Universe {
         this.name = name;
     }
 
-    public LinkedHashSet<Galaxy> getGalaxies() {
-        return new LinkedHashSet<>(galaxies);
-    }
 
-    public void setGalaxies(LinkedHashSet<Galaxy> galaxies) {
-        this.galaxies = galaxies;
-    }
 }
