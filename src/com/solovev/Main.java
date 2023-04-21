@@ -3,65 +3,87 @@ package com.solovev;
 import com.solovev.model.Galaxy;
 import com.solovev.model.Planet;
 import com.solovev.model.Universe;
+import com.solovev.util.RandomGenerator;
 
 import java.util.Arrays;
-import java.util.Scanner;
+import java.util.stream.IntStream;
+
 
 public class Main {
-    public static void main(String[] args) {
-        Planet[] planets = {
-                null,
-                new Planet(),
-                new Planet("corrupted", 1, 1),
-                new Planet("Earth", 6_378, 23.933),
-                new Planet("Earth", 100, 10)
-        };
+    static int testCounter = 1;
 
-        Galaxy[] galaxies = {
-                null,
-                new Galaxy(),
-                new Galaxy("nullPlanet", (Planet) null),
-                new Galaxy("empty"),
-                new Galaxy("1 plan", new Planet()),
-                new Galaxy("2 plan", new Planet(), new Planet("otherPlan", 6_378, 23.933)),
-                new Galaxy("array", planets),
-                new Galaxy("collection", Arrays.asList(planets)),
-        };
-        int galaxyToAdd = 5;
-        Universe[] universes = {
-                new Universe(),
-                new Universe("nullGalaxy", (Galaxy) null),
-                new Universe("empty"),
-                new Universe("1 Gal", new Galaxy()),
-                new Universe("2 Gal", new Galaxy(), galaxies[galaxyToAdd]),
-                new Universe("array", galaxies),
-                new Universe("collection", Arrays.asList(galaxies))
-        };
-
-        Scanner scanner = new Scanner(System.in);
-        String name = scanner.next();
-        if(name.isEmpty()){
-            System.out.println("Erro");
-            return;
+    /**
+     * Method to test code
+     * Prints if test have passed or failed
+     * if match test prints match, if not prints fails and show both results
+     *
+     * @param expected expected result
+     * @param result   real outcome
+     */
+    static <T> void test(T expected, T result) {
+        if (expected == null && result == null || expected.equals(result)) {
+            System.out.println("Test#" + testCounter++ + " success");
+        } else {
+            System.err.printf("Test#%d failed; Expected:%s Got: %s\n", testCounter++, expected, result);
         }
+    }
 
-//    for(com.kirillkotov.model.Universe u : universes){
-////        u.setGalaxies(null);
-//        System.out.println(u);
-//        System.out.println(u.searchPlanet((String) null));
-//        System.out.println(u.searchGalaxy((String)null));
-//        System.out.println(u.searchGalaxy((com.kirillkotov.model.Galaxy)null));
-//        System.out.println(u.addGalaxy(null));
-//        System.out.println(Arrays.toString(u.searchPlanet((com.kirillkotov.model.Planet) null)));
-//        System.out.println(u.searchPlanet("otherPlan"));
-//        System.out.println(u.searchGalaxy(new com.kirillkotov.model.Galaxy()));
-//        System.out.println(Arrays.toString(u.searchPlanet(new com.kirillkotov.model.Planet("otherPlan", 6_378,23.933))));
-//        System.out.println(u.addGalaxy(galaxies[galaxyToAdd]));
-//        System.out.println(u);
-//        System.out.println();
-//    }
-        Universe randomUni = new Universe();
-        randomUni.behavior();
+    public static void main(String[] args) {
+        Universe u = new Universe("Random");
+        int numGenerated = 3;
+        int maxRadOrb = 100;
+        int maxOrb = 10;
+        char GalaxyName = 'G';
+        char PlanetName = 'P';
+        IntStream
+                .range(0, numGenerated)
+                .forEach(i -> u.addGalaxy(RandomGenerator.generateGalaxy(GalaxyName, PlanetName, numGenerated, maxRadOrb, maxOrb)));
+        Galaxy g = new Galaxy("Random Gal");
+        IntStream
+                .range(0, numGenerated)
+                .forEach(i -> g.addPlanet(RandomGenerator.generatePlanet(PlanetName, maxRadOrb, maxOrb)));
+        Planet p = RandomGenerator.generatePlanet(PlanetName, maxRadOrb, maxOrb);
+        Planet toBeDeleted = RandomGenerator.generatePlanet(PlanetName, maxRadOrb, maxOrb);
+        Planet notExistent = new Planet("NotAPlanet", 1, 1);
 
+        System.out.println(p.behavior());
+        System.out.println(g.behavior());
+        //Tests
+        test(true, g.addPlanet(p));
+        test(false, g.addPlanet(p));
+
+        test(p, g.searchPlanet(p.getName()));
+        test(null, g.searchPlanet(notExistent.getName()));
+
+        test(g.size() - 1, g.searchPlanet(p));
+        test(-1, g.searchPlanet(notExistent));
+
+        g.addPlanet(toBeDeleted);
+        test(toBeDeleted, g.deletePlanet(toBeDeleted.getName()));
+        test(null, g.deletePlanet(toBeDeleted.getName()));
+
+        g.addPlanet(toBeDeleted);
+        test(true, g.deletePlanet(toBeDeleted));
+        test(false, g.deletePlanet(toBeDeleted));
+
+        test(true, u.addGalaxy(g));
+        test(false, u.addGalaxy(g));
+
+        test(g, u.searchGalaxy(g.getName()));
+        test(null, u.searchGalaxy("Earth"));
+
+        test(p, u.searchPlanet(p.getName()));
+        test(null, u.searchPlanet(notExistent.getName()));
+
+        test(u.size() - 1, u.searchGalaxy(g));
+        test(-1, u.searchGalaxy(new Galaxy()));
+
+        //tests for arrays both should return true
+        System.out.println(
+                Arrays.equals(new int[]{u.size() - 1, g.size() - 1}, u.searchPlanet(p)));
+        System.out.println(
+                Arrays.equals(new int[0], u.searchPlanet(notExistent)));
+
+        u.behavior();
     }
 }

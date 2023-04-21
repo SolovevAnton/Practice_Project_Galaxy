@@ -93,12 +93,19 @@ public class Galaxy {
      * @throws IndexOutOfBoundsException if index is < 0 or more than GalaxySize
      */
     public Planet get(int index) {
-        if (index < 0 || index >= this.planets.size()) {
+        if (index < 0 || index >= size()) {
             throw new IndexOutOfBoundsException("Index" + index + "is out of bounds for Galaxy of size " + this.planets.size());
         }
         return new ArrayList<>(this.planets).get(index);
     }
 
+    /**
+     * Method returns size of the Galaxy
+     * @return size
+     */
+    public int size(){
+        return this.planets.size();
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

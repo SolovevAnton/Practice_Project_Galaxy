@@ -50,7 +50,7 @@ public class Universe {
     /**
      * Method to find planet by object Planet
      *
-     * @return array of index of the galaxy where the planet was Firstly found and index of that planet in the galaxy, null otherwise
+     * @return array of index of the galaxy where the planet was Firstly found and index of that planet in the galaxy, empty array otherwise
      **/
     public int[] searchPlanet(Planet planet) {
         int planetIndex = -1;
@@ -97,11 +97,20 @@ public class Universe {
                 LinkedHashSet<Galaxy> generated = RandomGenerator.generateGalaxies('G', 'P',
                         MAX_RANDOM, MAX_RANDOM, MAX_RANDOM, MAX_RANDOM);
                 galaxies.addAll(generated);
+               // System.out.println(this); //added just for testing
                 Thread.sleep(SECONDS);
             }
         } catch (InterruptedException e) {
         }
 
+    }
+
+    /**
+     * Returns universe size
+     * @return size
+     */
+    public int size(){
+        return galaxies.size();
     }
 
     @Override
