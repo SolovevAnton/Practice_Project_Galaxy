@@ -1,5 +1,8 @@
 package com.solovev.model;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.solovev.util.RandomGenerator;
 
 import java.util.*;
@@ -13,7 +16,10 @@ public class Universe {
      * Maximum number for all randoms in the behavior method
      */
     private static final int MAX_RANDOM = Integer.MAX_VALUE / 1_000_000;
+    @JsonAlias("Name")
     private String name;
+    @JacksonXmlElementWrapper(useWrapping = false)
+    @JacksonXmlProperty(localName = "Galaxy")
     private final LinkedHashSet<Galaxy> galaxies = new LinkedHashSet<>();
 
     public Universe() {

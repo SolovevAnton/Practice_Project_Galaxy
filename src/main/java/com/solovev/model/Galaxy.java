@@ -1,12 +1,20 @@
 package com.solovev.model;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class Galaxy {
+    @JsonProperty("Name")
     private String name;
+    @JacksonXmlElementWrapper(localName = "Planets")
+    @JacksonXmlProperty(localName = "Planet")
     private final LinkedHashSet<Planet> planets = new LinkedHashSet<>();
 
     public Galaxy() {

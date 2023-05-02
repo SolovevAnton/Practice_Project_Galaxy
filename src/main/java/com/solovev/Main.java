@@ -3,6 +3,9 @@ package com.solovev;
 import com.solovev.model.Galaxy;
 import com.solovev.model.Planet;
 import com.solovev.model.Universe;
+import com.solovev.repository.GalaxyRepo;
+import com.solovev.repository.PlanetRepo;
+import com.solovev.repository.UniverseRepo;
 import com.solovev.util.RandomGenerator;
 import com.solovev.util.Util;
 import org.xml.sax.SAXException;
@@ -92,9 +95,24 @@ public class Main {
 //                Arrays.equals(new int[0], u.searchPlanet(notExistent)));
 //
 //        u.behavior();
-        File fIn = new File("UniverseInput.xml");
-        File fOut = new File("UniverseMyOut.xml");
-//        Util.transform(fIn,fOut);
+        File dir = new File("D:\\Git\\Practice_Projects\\Archive\\Galaxy\\src\\main\\resources");
 
+        File universeFileIn = new File(dir,"UniverseInput.xml");
+        File fOut = new File(dir,"UniverseMyOut.xml");
+
+        File planetFileIn = new File(dir,"PlanetInput.xml");
+        File galaxyFileIn = new File(dir,"GalaxyInput.xml");
+
+        File planetFileOut = new File(dir,"PlanetOut.xml");
+        File galaxyFileOut = new File(dir,"GalaxyOut.xml");
+        File universeFileOut = new File(dir,"UniverseOut.xml");
+
+        Util.transform(universeFileIn,fOut);
+        PlanetRepo planetRepo = new PlanetRepo(planetFileIn);
+        planetRepo.save(planetFileOut);
+        GalaxyRepo galaxyRepo = new GalaxyRepo(galaxyFileIn);
+        galaxyRepo.save(galaxyFileOut);
+        UniverseRepo universeRepo = new UniverseRepo(universeFileIn);
+        universeRepo.save(universeFileOut);
     }
 }

@@ -1,8 +1,13 @@
 package com.solovev.model;
 
+import com.fasterxml.jackson.annotation.*;
 public class Planet {
+
+    @JsonAlias("Name")
     private String name;
+    @JsonAlias("Diameter")
     private double radius;
+    @JsonAlias("OrbitalPeriod")
     private double orbitalPeriod;
 
     public Planet() {
