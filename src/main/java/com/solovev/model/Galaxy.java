@@ -101,11 +101,13 @@ public class Galaxy {
 
     /**
      * Method returns size of the Galaxy
+     *
      * @return size
      */
-    public int size(){
+    public int size() {
         return this.planets.size();
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

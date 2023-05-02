@@ -97,7 +97,7 @@ public class Universe {
                 LinkedHashSet<Galaxy> generated = RandomGenerator.generateGalaxies('G', 'P',
                         MAX_RANDOM, MAX_RANDOM, MAX_RANDOM, MAX_RANDOM);
                 galaxies.addAll(generated);
-               // System.out.println(this); //added just for testing
+                // System.out.println(this); //added just for testing
                 Thread.sleep(SECONDS);
             }
         } catch (InterruptedException e) {
@@ -107,9 +107,10 @@ public class Universe {
 
     /**
      * Returns universe size
+     *
      * @return size
      */
-    public int size(){
+    public int size() {
         return galaxies.size();
     }
 

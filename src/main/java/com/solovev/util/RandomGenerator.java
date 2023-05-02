@@ -58,12 +58,14 @@ public class RandomGenerator {
      * @param maxOrbitalPeriod Exclusive max possible orbital period
      * @return LinkedHashSet of Galaxies
      */
-    public static LinkedHashSet<Galaxy> generateGalaxies(char galaxyName, char planetName, int numOfGalaxies, int numOfPlanets, int maxRadius, int maxOrbitalPeriod) {
+    public static LinkedHashSet<Galaxy> generateGalaxies(char galaxyName, char planetName, int numOfGalaxies,
+                                                         int numOfPlanets, int maxRadius, int maxOrbitalPeriod) {
         int numberOfGalaxies = ThreadLocalRandom.current().nextInt(numOfGalaxies);
         LinkedHashSet<Galaxy> generated = new LinkedHashSet<>();
         IntStream
                 .range(0, numberOfGalaxies)
-                .forEach(i -> generated.add(generateGalaxy(galaxyName, planetName, numOfPlanets, maxRadius, maxOrbitalPeriod)));
+                .forEach(i -> generated.add(generateGalaxy(galaxyName, planetName,
+                        numOfPlanets, maxRadius, maxOrbitalPeriod)));
         return generated;
     }
 
