@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <Galaxy>
+        <Name>GalaxyOne</Name>
+        <Planets>
+            <Planet>
+                <Name>Qwerer</Name>
+                <Diameter>12500</Diameter>
+				<OrbitalPeriod>11</OrbitalPeriod>
+            </Planet>
+            <Planet>
+                <Name>Yogasana Vijnana: the Science of Yoga</Name>
+                <Diameter>15000</Diameter>
+				<OrbitalPeriod>24</OrbitalPeriod>
+            </Planet>
+        </Planets>
+    </Galaxy>

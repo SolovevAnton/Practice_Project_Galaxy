@@ -1,63 +1,29 @@
 # PracticeProject-galaxy
 
-Тренировочный проект по теме создание классов и работы с коллекциями
+Practice project on working with XML parsing DOM and Jackson XML parsing
 Done in 7.5 h
 Refactored in 2h;
 
-## Текст задачи
+## Task about XML parsing
+1. For each class, implement methods for loading data from an XML file and uploading it to it, the structure of which must correspond to the structure of the class. When implementing these methods, use Jackson Parser
+2. For the Universe file, perform transformation in the static method (parameters: input file name and output file name) of the Util class according to the following feature:
+   • All planets with the same name are grouped into tags
+   <EqualGroup number=”i” name=””>…</EqualGroup>, where number is the tag number in the file, name is the name of the group of tags grouped by the given name
+   • All EqualGroup tags must be placed in the Planets root tag
+## Tasks for classes creations
+1. Describe the class of a planet, (fields name of the planet, radius in km, period of revolution) and the planet behavior method , which returns a string containing the name of the planet and the speed of rotation around its axis. The rotation speed is calculated through the class method.
+2. Describe the concept of a galaxy, (fields the name of the galaxy and a list of planets for the current galaxy) and the method of galaxy behavior , which refers to each planet from the galaxy, calls the behavior from item 1 for it. Returns a string containing all the results of each planet's behavior calls.
+   2.1. Implement a method for adding a new planet to the list of all planets in the current galaxy. If such a planet already exists, then do not add it to the list
+   2.2. Implement methods for finding a planet by its name in the galaxy (returns the planet object) and by the object of the planet itself (returns the occurrence index)
+   2.3. Implement methods for removing a planet from a galaxy by its name (returns an object) and by the object of the planet itself (returns boolean)
 
-Тестовое задание по теме «Объектно-ориентированное 
-программирование на языке Java»
+3. Describe the concept of the universe, fields (at least a list of galaxies for the current universe) to determine independently
+   3.1. In the universe, implement a method for adding a new galaxy to the list of all galaxies
+   3.2. Implement methods:
+   • searching for a planet from the universe by name (returns an object) and by object (returns an array of two indices: the index of the galaxy in the universe and the index of the planet in the found galaxy),
+   • method of searching for a galaxy from the universe (by name and by object).
+   3.3 Behavior method, defined as random generation every 30 seconds of a random number of galaxies with a random number of planets, randomly generate the names of galaxies and planets (implement a separate class for this with specialized methods): the name of the planet must begin with the letter P, followed by a sequence digits, the name of the galaxy is similar, starting with G.
 
-Указания к выполнению задания:
-•	Все классы должны удовлетворять Code Conventions for the Java Programming Language и принципам SOLID
-•	В каждом классе должны быть описаны конструкторы по умолчанию, конструкторы с параметрами, инициализирующими поля классов, методы получения и установки значений в каждое из полей класса, метод toString, методы hashCode и equals
 
-Задание:
-1. Описать понятие планета, поля (название планеты, радиус в км, период обращения) и метод поведения планеты (название behavior), который возвращает строку, содержащую имя планеты и скорость вращения вокруг своей оси. Скорость вращения вычислять через метод класса.
-
-2. Описать понятие галактика, поля (название галактики и список планет для текущей галактики) и метод поведения галактики (название behavior), который обращается к каждой планете из галактики, вызывает для нее behavior из п.1. Возвращает строку, содержащую все результаты вызовов behavior каждой планеты.
-2.1. Реализовать метод добавления новой планеты в список всех планет текущей галактики. Если такая планета уже есть, то не добавлять ее в список
-2.2. Реализовать методы поиска планеты по ее имени в галактике (возвращает объект планеты) и по объекту самой планеты (возвращает индекс вхождения)
-2.3. Реализовать методы удаления планеты из галактики по ее имени (возвращает объект) и по объекту самой планеты (возвращает boolean)
-
-3. Описать понятие вселенная, поля (минимум список галактик для текущей вселенной) определить самостоятельно
-3.1. Во вселенной реализовать метод добавления новой галактики в список всех галактик
-3.2. Реализовать методы:
-•	поиска планеты из вселенной по имени (возвращает объект) и по объекту (возвращает массив из двух индексов: индекс галактики во вселенной и индекс планеты в найденной галактике),
-•	метод поиска галактики из вселенной (по имени и по объекту).
-3.3 Метод поведение, определить как генерацию случайным образом раз в 30 секунд случайного количества галактик со случайным числом планет, имена галактик и планет генерировать случайным образом (реализовать для этого отдельный класс со специализирующими методами): имя планеты должно начинаться с буквы Р, далее идет последовательность цифр , имя галактики аналогично , начиная с G. 
-
-## Предположения
-1. Радиус и период обращения планеты должы быть больше 0, в другом случае вылетает IlligalArgumentException
-2. null com.solovev.model.Galaxy и null com.solovev.model.Planet возвращают null из метода поведение
-3. Имена планет и галатик могут повторяться. 
-4. Имена планет и галактик могут быть null
-5. Планеты в галактиках и галактики по вселенных могут иметь значение null
-6. Список планет и список галактик могут принимать значение null
-7. При реализации задания 3.3 программа уходит в бесконечный цикл и раз в 30 секунд генерирует планеты и галаткики
-8. Галактики сгенерированные в 3.3 записываются в лист галатик той вселенной, которая их сгенерировала
-
-## Вопросы
-1. Как корректно описывать сценарий "сценарий по умолчанию"? Например планета - при создании пустым конструктором должна иметь все 0? Если каждая планета уникальна, должен ли дефолтный сценарий каждый раз создавать уникальную планету?
-1o: Можно и так и так. Если полей много - лучше в конструкторе
-2. При создании дефолтной планеты с 0 периодом обращения - метод поведение будет выдавать ошибку. Корректно ли у для такой планеты прописывать 1 при объявлении поля?
-2о: Да
-3. Корректно ли прописаны комментарии к коду?
-3о: Нет, лучше комментировать тогда через /**
-4. Корректно ли выбрано исключение IlligalArgumentException при указании радиуса, периода обращения планеты <= 0 в конструкторе?
-4о: Да, но его лучше реализовывать в Main
-5. Корректно ли использовать setter в конструкторе?
-5o: Лучше не стоит
-6. следует ли обрабатывать NullPointerException везде где они могут возникнуть? Например в методе behavior in com.solovev.model.Galaxy когда com.solovev.model.Planet == null;
-6о: нет, не стоит
-7. Окей ли overload метод search in com.solovev.model.Galaxy, c учетом тогоб что без указания типа объекта вызов метода g.search(null) выдыет ошибку компиляции. Может лучше было сделать 2 разных метода?
-7о: Окей, нули можно не учитывать
-8. Всегда ли следует возвращать protectedCopy если метод getter подразумевает возврат коллекции? Например в com.solovev.model.Galaxy class
-8о: всегда, но лучше вообще не возвращать
-9. Не совсем понял про раз в 30 секунд. Программа не должна заканчиваться?
-9о: Все верно
-10. Создание рандомных чисел. Проблема с ограничением размеров рандомных коллекций. При ограниеченях в Integer.MAX_VALUE вылетает out of memory
-10о: Так и должно быть
 
 
