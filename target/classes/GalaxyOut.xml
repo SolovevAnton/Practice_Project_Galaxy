@@ -1,1 +1,15 @@
-<Galaxy><name>GalaxyOne</name><Planets><planets><name>Qwerer</name><radius>12500.0</radius><orbitalPeriod>11.0</orbitalPeriod></planets><planets><name>Yogasana Vijnana: the Science of Yoga</name><radius>15000.0</radius><orbitalPeriod>24.0</orbitalPeriod></planets></Planets></Galaxy>
+<Galaxy>
+    <Name>GalaxyOne</Name>
+    <Planets>
+        <Planet>
+            <name>Qwerer</name>
+            <radius>12500.0</radius>
+            <orbitalPeriod>11.0</orbitalPeriod>
+        </Planet>
+        <Planet>
+            <name>Yogasana Vijnana: the Science of Yoga</name>
+            <radius>15000.0</radius>
+            <orbitalPeriod>24.0</orbitalPeriod>
+        </Planet>
+    </Planets>
+</Galaxy>

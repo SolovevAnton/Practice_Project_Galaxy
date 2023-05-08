@@ -1,1 +1,5 @@
-<Planet><name>Qwerer</name><radius>12500.0</radius><orbitalPeriod>11.0</orbitalPeriod></Planet>
+<Planet>
+    <name>Qwerer</name>
+    <radius>12500.0</radius>
+    <orbitalPeriod>11.0</orbitalPeriod>
+</Planet>
